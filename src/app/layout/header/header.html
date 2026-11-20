@@ -1,0 +1,20 @@
+<header>
+  <nav>
+    <a routerLink="/"><h2>Foodie</h2></a>
+    <a
+      class="dekstopView"
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Home</a
+    >
+    <a class="dekstopView" routerLink="/menu" routerLinkActive="active">Menu</a>
+  </nav>
+
+  <div class="btnsDiv">
+    <a class="btn" routerLink="/cart"><i class="fa fa-solid fa-cart-shopping"></i></a>
+
+    <a class="btn dekstopView" routerLink="/signin">Login</a>
+    <a class="btn orangeBtn dekstopView" routerLink="/register">Sign up</a>
+  </div>
+</header>

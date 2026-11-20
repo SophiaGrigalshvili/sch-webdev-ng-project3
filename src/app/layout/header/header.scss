@@ -1,0 +1,62 @@
+header {
+  display: flex;
+  height: 80px;
+  border-bottom: 1px solid white;
+  background-color: rgba(255, 255, 255, 0.638);
+  backdrop-filter: blur(10px);
+
+  align-items: center;
+  padding: 0 5%;
+  justify-content: space-between;
+
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    h2 {
+      color: #ff6b35;
+    }
+
+    a {
+      color: black;
+      transition: 0.12s;
+
+      &:hover {
+        color: #ff6b35;
+      }
+    }
+
+    a.active {
+      color: #ff6b35;
+    }
+  }
+  .btnsDiv {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    .btn {
+      background-color: transparent;
+      color: black;
+      padding: 10px 14px;
+      border-radius: 10px;
+      transition: 0.2s;
+      &:hover {
+        background-color: rgb(224, 221, 221);
+      }
+    }
+
+    .orangeBtn {
+      background-color: #ff6b35;
+      color: white;
+
+      &:hover {
+        background-color: #ff9829;
+      }
+    }
+  }
+}
