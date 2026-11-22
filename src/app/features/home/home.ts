@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { ProductService } from '../../core/services/product-service';
+import { Card } from '../../layout/card/card';
 
 @Component({
-  imports: [RouterOutlet, RouterLink],
+  imports: [ RouterLink, Card],
   selector: 'app-home',
   styleUrl: './home.scss',
   templateUrl: './home.html',

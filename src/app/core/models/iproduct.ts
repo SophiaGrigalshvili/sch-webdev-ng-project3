@@ -14,3 +14,8 @@ export interface IProductData {
   products: IProduct[];
   hasMore: boolean;
 }
+
+export interface IMetaData {
+  data: IProductData;
+  meta: {};
+}

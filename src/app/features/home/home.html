@@ -8,7 +8,23 @@
   <section class="popularDishesSect">
     <h2>Popular Dishes</h2>
 
-    <div class="cardContainer"></div>
+    @if (productService.isLoading()) {
+      <div class="empty">
+        <span class="loader"></span>
+      </div>
+    } @else if (productService.errorMsg()) {
+      <div class="empty">
+        <p>{{ productService.errorMsg() }}</p>
+      </div>
+    } @else {
+      <div class="cardContainer">
+        @for (dish of productService.popularProducts(); track dish.id) {
+          <app-card [dish]="dish" (dishId)="productService.getProductById(dish.id)"></app-card>
+        } @empty {
+          <div class="empty">No Products Found :(</div>
+        }
+      </div>
+    }
   </section>
 
   <section class="storySect">
@@ -30,7 +46,7 @@
         memorable dining experiences right to your door.
       </p>
 
-      <a routerLink="/">Explore Our Menu</a>
+      <a routerLink="/menu">Explore Our Menu</a>
     </div>
   </section>
 </main>
