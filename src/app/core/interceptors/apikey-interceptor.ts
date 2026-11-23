@@ -1,7 +1,7 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
 export const apikeyInterceptor: HttpInterceptorFn = (req, next) => {
-  const X_STEP_KEY: string = '9dd3309a-c57d-4874-898b-9f5ab804efa3';
+  const X_STEP_KEY: string = '37925c70-d719-4f79-a988-bdfd6fe2bfc6';
   let newReq = req.clone({
     setHeaders: {
       'X-STEP-KEY': X_STEP_KEY,

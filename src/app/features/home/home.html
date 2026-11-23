@@ -19,7 +19,11 @@
     } @else {
       <div class="cardContainer">
         @for (dish of productService.popularProducts(); track dish.id) {
-          <app-card [dish]="dish" (dishId)="productService.getProductById(dish.id)"></app-card>
+          <app-card
+            [dish]="dish"
+            [isHome]="true"
+            (dishId)="productService.getProductById(dish.id)"
+          ></app-card>
         } @empty {
           <div class="empty">No Products Found :(</div>
         }

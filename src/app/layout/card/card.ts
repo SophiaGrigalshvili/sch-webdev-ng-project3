@@ -4,7 +4,7 @@ import { IProduct } from '../../core/models/iproduct';
 import { RouterLink } from '@angular/router';
 
 @Component({
-  imports: [RouterLink, ],
+  imports: [RouterLink],
   selector: 'app-card',
   styleUrl: './card.scss',
   templateUrl: './card.html',
@@ -12,6 +12,8 @@ import { RouterLink } from '@angular/router';
 export class Card {
   @Input() dish!: IProduct;
   @Input() isDetails: boolean = false;
+  @Input() isHome: boolean = false;
+  @Input() isMenu: boolean = false;
 
   @Output() dishId = new EventEmitter<number>();
 

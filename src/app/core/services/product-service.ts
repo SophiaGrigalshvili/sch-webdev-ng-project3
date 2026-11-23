@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Service, signal } from '@angular/core';
+import { computed, inject, Service, signal } from '@angular/core';
 import { IMetaData, IProduct, IProductData } from '../models/iproduct';
 
 @Service()
@@ -10,14 +10,22 @@ export class ProductService {
   isLoading = signal<boolean>(false);
   errorMsg = signal<string | null>(null);
 
+  totalIsLoading = signal<boolean>(false);
+  totalErrorMsg = signal<string | null>(null);
+
   hasMore = signal<boolean>(false);
+
   productsData = signal<IProduct[]>([]);
+  numOfProducts = 0;
+
   filteredProducts = signal<IProduct[]>([]);
   popularProducts = signal<IProduct[]>([]);
   productById = signal<IProduct | null>(null);
-  totalProducts = signal<number>(0);
 
-  getAllProducts(Take = 50, Page = 1) {
+  allProducts = signal<IProduct[]>([]);
+  totalProducts = 0;
+
+  getAllProducts(Take = 100, Page = 1) {
     this.isLoading.set(true);
     this.errorMsg.set(null);
 
@@ -26,13 +34,13 @@ export class ProductService {
         this.hasMore.set(data.data.hasMore);
 
         this.productsData.set(data.data.products);
-        this.totalProducts.set(data.data.products.length);
-
         this.popularProducts.set(data.data.products.sort((a, b) => b.rate - a.rate).slice(0, 6));
+        this.numOfProducts = this.productsData().length;
 
         console.log('all dishes:', this.productsData());
         console.log('popular dishes:', this.popularProducts());
         console.log('has more pages:', this.hasMore());
+        console.log('displaying products:', this.numOfProducts);
 
         this.isLoading.set(false);
       },
@@ -62,6 +70,29 @@ export class ProductService {
 
         this.errorMsg.set('There was a problem getting the product!');
         this.isLoading.set(false);
+      },
+    });
+  }
+  getTotalNumOfProducts(Take = 100, Page = 1) {
+    this.totalIsLoading.set(true);
+    this.totalErrorMsg.set(null);
+
+    this.http.get<IMetaData>(`${this.BASE_URL}/api/products?Take=${Take}&Page=${Page}`).subscribe({
+      next: (data) => {
+        this.totalIsLoading.set(false);
+
+        this.allProducts.set(data.data.products);
+        this.totalProducts = this.allProducts().length;
+
+        console.log('total number of products:', this.totalProducts);
+
+        this.totalIsLoading.set(false);
+      },
+      error: (err) => {
+        console.log('error in getting All products:', err);
+
+        this.totalErrorMsg.set('There was a problem getting All products!');
+        this.totalIsLoading.set(false);
       },
     });
   }

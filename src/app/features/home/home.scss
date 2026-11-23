@@ -61,13 +61,18 @@
 
     align-items: center;
     justify-content: center;
+
+    p {
+      color: #7e7e7e;
+      font-size: 20px;
+    }
   }
 
   .cardContainer {
     display: grid;
     grid-template-columns: repeat(3, 31%);
     grid-template-rows: repeat(2, fit-content);
-    gap: 30px 2.333%;
+    gap: 30px 35px;
   }
 }
 

@@ -1,1 +1,62 @@
-<p>shop works!</p>
+<main>
+  <aside>
+    <p>filters go here</p>
+  </aside>
+
+  <section class="contentContainer">
+    <section class="title">
+      <h3>Menu</h3>
+      @if (!productService.isLoading()) {
+        <p>Showing {{ productService.numOfProducts }} products</p>
+      } @else {
+        <span></span>
+      }
+    </section>
+
+    <section class="prodSect">
+      <section class="dishes">
+        @if (productService.isLoading()) {
+          <div class="empty">
+            <span class="loader"></span>
+          </div>
+        } @else if (productService.errorMsg()) {
+          <div class="empty">
+            <p>{{ productService.errorMsg() }}</p>
+          </div>
+        } @else {
+          <div class="cardContainer">
+            @for (dish of productService.productsData(); track dish.id) {
+              <app-card
+                [dish]="dish"
+                [isMenu]="true"
+                (dishId)="productService.getProductById(dish.id)"
+              ></app-card>
+            } @empty {
+              <div class="empty">No Products Found :(</div>
+            }
+          </div>
+        }
+      </section>
+
+      <section class="pageination">
+        @if (!productService.totalIsLoading()) {
+          @if (!productService.hasMore() || currentPage != 1) {
+            <button (click)="changePage(currentPage - 1)">< Previous</button>
+          }
+
+          @for (pageBtn of pages(); track $index) {
+            <button [class.active]="pageBtn === currentPage" (click)="changePage(pageBtn)">
+              {{ pageBtn }}
+            </button>
+          }
+
+          @if (productService.hasMore()) {
+            <button (click)="changePage(currentPage + 1)">Next ></button>
+          }
+        } @else {
+          <span></span>
+        }
+      </section>
+    </section>
+  </section>
+</main>
