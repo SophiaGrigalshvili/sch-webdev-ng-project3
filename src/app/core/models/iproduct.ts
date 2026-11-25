@@ -2,12 +2,17 @@ export interface IProduct {
   id: number;
   name: 'string';
   description: 'string';
-  vegeterian: boolean;
+  vegetarian: boolean;
   spiciness: number;
   rate: number;
   price: number;
   image: 'string';
   canDelete: boolean;
+
+  categoryId?: number;
+  ingredients?: string[];
+  method?: string;
+  items?: [];
 }
 
 export interface IProductData {
@@ -17,5 +22,10 @@ export interface IProductData {
 
 export interface IMetaData {
   data: IProductData;
+  meta: {};
+}
+
+export interface IMetaDataId {
+  data: IProduct;
   meta: {};
 }

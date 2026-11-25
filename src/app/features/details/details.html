@@ -1,1 +1,19 @@
-<p>details works!</p>
+<main>
+  @if (productService.isLoading()) {
+    <div class="empty">
+      <span class="loader"></span>
+    </div>
+  } @else if (productService.errorMsg()) {
+    <div class="empty">
+      <p>{{ productService.errorMsg() }}</p>
+    </div>
+  } @else {
+    <div class="detailsDiv">
+      <div class="container">
+        @if (productService.productById(); as dish) {
+          <app-card [dish]="dish" [isDetails]="true"></app-card>
+        }
+      </div>
+    </div>
+  }
+</main>

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Service, signal } from '@angular/core';
-import { IMetaData, IProduct, IProductData } from '../models/iproduct';
+import { IMetaData, IMetaDataId, IProduct, IProductData } from '../models/iproduct';
 
 @Service()
 export class ProductService {
@@ -57,9 +57,9 @@ export class ProductService {
     this.isLoading.set(true);
     this.errorMsg.set(null);
 
-    this.http.get<IProduct>(`${this.BASE_URL}/api/products/${id}`).subscribe({
+    this.http.get<IMetaDataId>(`${this.BASE_URL}/api/products/${id}`).subscribe({
       next: (data) => {
-        this.productById.set(data);
+        this.productById.set(data.data);
 
         console.log(this.productById());
 

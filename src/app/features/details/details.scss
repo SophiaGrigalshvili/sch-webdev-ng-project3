@@ -1,0 +1,28 @@
+main {
+  padding: 40px 4%;
+
+  .detailsDiv {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    .container {
+      width: 90%;
+    }
+  }
+}
+
+.empty {
+  height: 100%;
+  padding: 50px 0;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  p {
+    color: #7e7e7e;
+    font-size: 20px;
+  }
+}
