@@ -1,4 +1,10 @@
-<app-header></app-header>
+@if (router.url !== '/register' && router.url !== '/login' && router.url !== '/verify') {
+  <app-header></app-header>
+} @else {
+  <!-- TEMPORARY!! DELETE LATER -->
+  <app-header></app-header>
+  <p style="position: absolute; top: 55px; left: 10px; z-index: 1000">auth pages. delete later</p>
+}
 
 <main>
   <router-outlet></router-outlet>

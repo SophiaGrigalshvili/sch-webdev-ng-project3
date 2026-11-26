@@ -1,1 +1,64 @@
-<p>login works!</p>
+<main>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email" class="form-label">Email address</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        class="form-control"
+        placeholder="you@example.com"
+        autocomplete="email"
+        formControlName="email"
+        [class.invalid]="email.invalid && email.touched"
+      />
+      @if (email?.invalid && email?.touched) {
+        <div class="invalid-feedback">
+          @if (email?.errors?.['required']) {
+            <span>Email is required.</span>
+          } @else if (email?.errors?.['email']) {
+            <span>Enter a valid email address.</span>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="form-control"
+        placeholder="Enter your password"
+        autocomplete="current-password"
+        formControlName="password"
+        [class.invalid]="password.invalid && password.touched"
+      />
+      @if (password?.invalid && password?.touched) {
+        <div class="invalid-feedback">
+          <span>Password is required.</span>
+        </div>
+      }
+    </div>
+
+    <div class="rememberpsword">
+      <div class="remember-group">
+        <input
+          type="checkbox"
+          name="remember"
+          id="remember"
+          class="form-check-input"
+          formControlName="remember"
+        />
+        <label for="remember">Remember me</label>
+      </div>
+
+      <a routerLink="/reset-password">Forgot Password</a>
+    </div>
+
+    <button type="submit" class="submitBtn" [disabled]="authService.isLoading()">Sign in</button>
+  </form>
+
+  <a routerLink="/register">register</a>
+</main>

@@ -1,1 +1,113 @@
-<p>registration works!</p>
+<main>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="firstName" class="form-label">First Name</label>
+      <input
+        type="text"
+        id="firstName"
+        name="firstName"
+        class="form-control"
+        placeholder="ex: john"
+        formControlName="firstName"
+        [class.invalid]="firstName.touched && firstName.invalid"
+      />
+      @if (firstName.touched && firstName.invalid) {
+        <div class="invalid-feedback">
+          @if (firstName?.errors?.['required']) {
+            <span>Firstname is required.</span>
+          }
+          @if (firstName?.errors?.['minLength']) {
+            <span>Fisrtname must be more than 3 characters</span>
+          }
+          @if (firstName?.errors?.['maxLength']) {
+            <span>Fisrtname must be less than 20 characters</span>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="lastName" class="form-label">Last Name</label>
+      <input
+        type="text"
+        id="lastName"
+        name="lastName"
+        class="form-control"
+        placeholder="ex: smith"
+        formControlName="lastName"
+        [class.invalid]="lastName.touched && lastName.invalid"
+      />
+      @if (lastName.touched && lastName.invalid) {
+        <div class="invalid-feedback">
+          @if (lastName?.errors?.['required']) {
+            <span>lastName is required.</span>
+          }
+          @if (lastName?.errors?.['minLength']) {
+            <span>lastName must be more than 3 characters</span>
+          }
+          @if (lastName?.errors?.['maxLength']) {
+            <span>lastName must be less than 20 characters</span>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        class="form-control"
+        placeholder="ex: you@example.com"
+        formControlName="email"
+        [class.invalid]="email.touched && email.invalid"
+      />
+      @if (email.touched && email.invalid) {
+        <div class="invalid-feedback">
+          @if (email?.errors?.['required']) {
+            <span>email is required.</span>
+          }
+          @if (email?.errors?.['email']) {
+            <span>Invalid fmail format</span>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        class="form-control"
+        placeholder="Enter your password"
+        formControlName="password"
+        [class.invalid]="password.touched && password.invalid"
+      />
+      @if (password.touched && password.invalid) {
+        <div class="invalid-feedback">
+          @if (password?.errors?.['required']) {
+            <span>password is required.</span>
+          }
+          @if (password?.errors?.['minLength']) {
+            <span>password must be more than 8 characters</span>
+          }
+          @if (password?.errors?.['maxLength']) {
+            <span>password too long</span>
+          }
+          @if (password?.errors?.['pattern']) {
+            <span>password must be includes at least upper, lower, number and symbol</span>
+          }
+        </div>
+      }
+    </div>
+
+    <button type="submit" class="submitBtn" [disabled]="authService.isLoading()">
+      Create Account
+    </button>
+  </form>
+
+  <a routerLink="/login">sign in page</a>
+</main>

@@ -5,6 +5,9 @@ import { Details } from './features/details/details';
 import { Cart } from './features/cart/cart';
 import { Registration } from './features/auth/registration/registration';
 import { Login } from './features/auth/login/login';
+import { EmailVerify } from './features/auth/email-verify/email-verify';
+import { ResetPassword } from './features/auth/reset-password/reset-password';
+import { ResetPasswordTokenPage } from './features/auth/reset-password-token-page/reset-password-token-page';
 
 export const routes: Routes = [
   {
@@ -33,13 +36,25 @@ export const routes: Routes = [
     title: 'Foodie | Sign Up',
   },
   {
-    path: 'signin',
+    path: 'login',
     component: Login,
     title: 'Foodie | Sign In',
   },
-
-  //add reset password and verification
-
+  {
+    path: 'verify',
+    component: EmailVerify,
+    title: 'Foodie | Verify',
+  },
+  {
+    path: 'reset-password',
+    component: ResetPassword,
+    title: 'Foodie | Reset Password',
+  },
+  {
+    path: 'reset-password/token=:token',
+    component: ResetPasswordTokenPage,
+    title: 'Foodie | Reset Password',
+  },
   {
     path: '**',
     redirectTo: '',

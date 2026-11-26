@@ -1,1 +1,63 @@
-<p>email-verify works!</p>
+<main>
+  <form [formGroup]="verificationForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email" class="form-label">Email</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        class="form-control"
+        placeholder="ex: you@example.com"
+        formControlName="email"
+        [class.invalid]="email.touched && email.invalid"
+      />
+      @if (email.touched && email.invalid) {
+        <div class="invalid-feedback">
+          @if (email?.errors?.['required']) {
+            <span>email is required.</span>
+          }
+          @if (email?.errors?.['email']) {
+            <span>Invalid fmail format</span>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="code" class="form-label">Verification Code</label>
+      <input
+        type="text"
+        id="code"
+        name="code"
+        class="form-control"
+        placeholder="Enter 6-digit code"
+        formControlName="code"
+        [class.invalid]="code.touched && code.invalid"
+      />
+      @if (code.touched && code.invalid) {
+        <div class="invalid-feedback">
+          @if (code?.errors?.['required']) {
+            <span>code is required.</span>
+          }
+        </div>
+      }
+    </div>
+
+    <button
+      type="submit"
+      class="submitBtn"
+      [disabled]="authService.isLoading() || verificationForm.invalid"
+    >
+      Verify
+    </button>
+  </form>
+
+  <button
+    (click)="authService.resendVerificationCode(email.value)"
+    [disabled]="authService.isLoading() || email?.value === '' || email?.errors?.['email']"
+  >
+    resend code
+  </button>
+
+  <a routerLink="/login">login page</a>
+</main>

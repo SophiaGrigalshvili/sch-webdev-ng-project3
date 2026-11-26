@@ -30,7 +30,7 @@ export interface IResetPasswordRequest {
   newPassword: string;
 }
 
-export interface IRefreshTokenRequest {
+export interface IRefreshTokenResponse {
   accessToken: string;
   refreshToken: string;
   isVerified: boolean;
