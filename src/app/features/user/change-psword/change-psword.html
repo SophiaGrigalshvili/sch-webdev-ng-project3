@@ -1,0 +1,73 @@
+<section class="changePsword">
+  <p>change password</p>
+
+  <form [formGroup]="changePasswordForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="oldPassword" class="form-label">Current Password</label>
+      <input
+        type="password"
+        id="oldPassword"
+        name="oldPassword"
+        class="form-control"
+        formControlName="oldPassword"
+        [class.invalid]="oldPassword.touched && oldPassword.invalid"
+      />
+      @if (oldPassword.touched && oldPassword.invalid) {
+        <div class="invalid-feedback">
+          @if (oldPassword?.errors?.['required']) {
+            <span>password is required.</span>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="newPassword" class="form-label">New Password</label>
+      <input
+        type="password"
+        id="newPassword"
+        name="newPassword"
+        class="form-control"
+        formControlName="newPassword"
+        [class.invalid]="newPassword.touched && newPassword.invalid"
+      />
+      @if (newPassword.touched && newPassword.invalid) {
+        <div class="invalid-feedback">
+          @if (newPassword?.errors?.['required']) {
+            <span>password is required.</span>
+          }
+          @if (newPassword?.errors?.['minLength']) {
+            <span>password must be more than 8 characters</span>
+          }
+          @if (newPassword?.errors?.['maxLength']) {
+            <span>password too long</span>
+          }
+          @if (newPassword?.errors?.['pattern']) {
+            <span>password must be includes at least upper, lower, number and symbol</span>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="confirmPassword" class="form-label">Confirm Password</label>
+      <input
+        type="password"
+        id="confirmPassword"
+        name="confirmPassword"
+        class="form-control"
+        formControlName="confirmPassword"
+        [class.invalid]="confirmPassword.touched && confirmPassword.invalid"
+      />
+      @if (confirmPassword.touched && confirmPassword.invalid) {
+        <div class="invalid-feedback">
+          @if (confirmPassword?.errors?.['required']) {
+            <span>password is required.</span>
+          }
+        </div>
+      }
+    </div>
+
+    <button type="submit" class="submitBtn">Update Password</button>
+  </form>
+</section>

@@ -8,6 +8,10 @@ import { Login } from './features/auth/login/login';
 import { EmailVerify } from './features/auth/email-verify/email-verify';
 import { ResetPassword } from './features/auth/reset-password/reset-password';
 import { ResetPasswordTokenPage } from './features/auth/reset-password-token-page/reset-password-token-page';
+import { User } from './features/user/user/user';
+import { UserDetails } from './features/user/user-details/user-details';
+import { ChangePsword } from './features/user/change-psword/change-psword';
+import { AccSettings } from './features/user/acc-settings/acc-settings';
 
 export const routes: Routes = [
   {
@@ -54,6 +58,27 @@ export const routes: Routes = [
     path: 'reset-password/token=:token',
     component: ResetPasswordTokenPage,
     title: 'Foodie | Reset Password',
+  },
+  {
+    path: 'profile',
+    component: User,
+    children: [
+      {
+        path: '',
+        component: UserDetails,
+        title: 'Foodie | Profile',
+      },
+      {
+        path: 'change-password',
+        component: ChangePsword,
+        title: 'Foodie | Profile',
+      },
+      {
+        path: 'settings',
+        component: AccSettings,
+        title: 'Foodie | Profile',
+      },
+    ],
   },
   {
     path: '**',

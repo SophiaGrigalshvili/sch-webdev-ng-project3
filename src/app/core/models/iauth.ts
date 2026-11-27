@@ -35,3 +35,8 @@ export interface IRefreshTokenResponse {
   refreshToken: string;
   isVerified: boolean;
 }
+
+export interface ILoginMetaDataResp {
+  data: ILoginResponse;
+  meta: {};
+}

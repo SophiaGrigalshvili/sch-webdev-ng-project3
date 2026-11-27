@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { computed, inject, Service, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import {
+  ILoginMetaDataResp,
   ILoginRequest,
   ILoginResponse,
   IRefreshTokenResponse,
@@ -59,22 +60,31 @@ export class AuthService {
     this.isLoading.set(true);
     this.errorMsg.set(null);
 
-    this.http.post<ILoginResponse>(`${this.BASE_URL}/api/auth/login`, userData).subscribe({
+    this.http.post<ILoginMetaDataResp>(`${this.BASE_URL}/api/auth/login`, userData).subscribe({
       next: (data) => {
-        console.log(data);
+        this.access_token.set(data.data.accessToken);
+        this.refresh_token.set(data.data.refreshToken);
+
+        const aToken = data.data.accessToken;
+        const rToken = data.data.refreshToken;
 
         if (this.isRemember()) {
-          localStorage.setItem('access_token', data.accessToken);
-          localStorage.setItem('refresh_token', data.refreshToken);
+          localStorage.setItem('access_token', aToken);
+          localStorage.setItem('refresh_token', rToken);
         } else {
-          sessionStorage.setItem('access_token', data.accessToken);
-          sessionStorage.setItem('refresh_token', data.refreshToken);
+          sessionStorage.setItem('access_token', aToken);
+          sessionStorage.setItem('refresh_token', rToken);
         }
 
-        this.access_token.set(data.accessToken);
-        this.refresh_token.set(data.refreshToken);
+        // console.log(this.access_token());
+        // console.log(this.refresh_token());
+        // console.log('data from meta');
+        // console.log(data.data.accessToken);
+        // console.log(data.data.refreshToken);
 
-        if (!data.isVerified) {
+        // console.log('------------------------------------');
+
+        if (!data.data.isVerified) {
           this.isLoading.set(false);
           this.router.navigate(['/verify']);
         }
@@ -143,21 +153,24 @@ export class AuthService {
       this.isLoading.set(false);
     } else {
       this.http
-        .post<IRefreshTokenResponse>(
+        .post<ILoginMetaDataResp>(
           `${this.BASE_URL}/api/auth/refresh-access-token/${this.refresh_token()}`,
           this.refresh_token(),
         )
         .subscribe({
           next: (data) => {
-            if (localStorage.getItem('access_token') && localStorage.getItem('refresh_token')) {
-              localStorage.setItem('access_token', data.accessToken);
-              localStorage.setItem('refresh_token', data.refreshToken);
+            const aToken = data.data.accessToken;
+            const rToken = data.data.refreshToken;
+
+            if (this.isRemember()) {
+              localStorage.setItem('access_token', aToken);
+              localStorage.setItem('refresh_token', rToken);
             } else {
-              sessionStorage.setItem('access_token', data.accessToken);
-              sessionStorage.setItem('refresh_token', data.refreshToken);
+              sessionStorage.setItem('access_token', aToken);
+              sessionStorage.setItem('refresh_token', rToken);
             }
 
-            if (!data.isVerified) {
+            if (!data.data.isVerified) {
               this.isLoading.set(false);
               this.router.navigate(['/verify']);
             }

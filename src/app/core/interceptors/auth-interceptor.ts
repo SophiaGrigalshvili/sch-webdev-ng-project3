@@ -2,7 +2,7 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { AuthService } from '../services/auth-service';
 import { inject } from '@angular/core';
 
-const authenticatedEndpoints = ['cart/users'];
+const authenticatedEndpoints = ['users', 'cart'];
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
